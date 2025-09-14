@@ -9,6 +9,6 @@ import lombok.Data;
 public class GamesDTO {
   @NotBlank @NotEmpty @NotNull private String name;
   private String image;
-  @NotBlank @NotEmpty @NotNull private Integer stockTotal;
-  @NotBlank @NotEmpty @NotNull private Integer pricePerDay;
+  @NotNull private Integer stockTotal;
+  @NotNull private Integer pricePerDay;
 }

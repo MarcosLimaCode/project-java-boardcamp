@@ -30,7 +30,7 @@ public class CustomersModel {
   @Size(min = 10, max = 11)
   private String phone;
 
-  @Column(nullable = false, length = 11)
+  @Column(nullable = false, length = 11, unique = true)
   private String cpf;
 
   public CustomersModel(CustomersDTO dto) {

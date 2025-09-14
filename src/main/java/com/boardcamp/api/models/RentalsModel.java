@@ -1,11 +1,14 @@
 package com.boardcamp.api.models;
 
 import com.boardcamp.api.dtos.RentalsDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -23,11 +26,13 @@ public class RentalsModel {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @JsonIgnore
   @Column(nullable = false)
-  private Integer customerId;
+  private Long customerId;
 
+  @JsonIgnore
   @Column(nullable = false)
-  private Integer gameId;
+  private Long gameId;
 
   @Column(nullable = false)
   private LocalDate rentDate;
@@ -40,9 +45,20 @@ public class RentalsModel {
 
   @Column private Integer delayFee;
 
-  public RentalsModel(RentalsDTO dto) {
+  @ManyToOne
+  @JoinColumn(name = "customer")
+  private CustomersModel customer;
+
+  @ManyToOne
+  @JoinColumn(name = "game")
+  private GamesModel game;
+
+  public RentalsModel(RentalsDTO dto, CustomersModel customer, GamesModel game) {
     this.customerId = dto.getCustomerId();
     this.gameId = dto.getGameId();
+    this.rentDate = LocalDate.now();
     this.daysRented = dto.getDaysRented();
+    this.customer = customer;
+    this.game = game;
   }
 }
