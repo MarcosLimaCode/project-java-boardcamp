@@ -39,5 +39,3 @@ public class rentalsModel {
 
   @Column private Integer delayFee;
 }
-
-// id, customerId, gameId, rentDate, daysRented, returnDate, originalPrice, delayFee

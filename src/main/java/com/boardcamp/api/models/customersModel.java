@@ -33,4 +33,3 @@ public class customersModel {
   private String cpf;
 }
 
-// id, name, phone, cpf

@@ -33,5 +33,3 @@ public class gamesModel {
   @Column(nullable = false)
   private Integer pricePerDay;
 }
-
-// id, name, image, stockTotal, pricePerDay
