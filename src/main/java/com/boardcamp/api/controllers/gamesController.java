@@ -1,3 +1,8 @@
 package com.boardcamp.api.controllers;
 
-public class gamesController {}
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/games")
+public class GamesController {}

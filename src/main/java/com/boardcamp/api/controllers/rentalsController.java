@@ -1,3 +1,8 @@
 package com.boardcamp.api.controllers;
 
-public class rentalsController {}
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/rentals")
+public class RentalsController {}
