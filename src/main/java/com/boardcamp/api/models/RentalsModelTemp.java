@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Rentals")
-public class RentalsModel {
+public class RentalsModelTemp {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
