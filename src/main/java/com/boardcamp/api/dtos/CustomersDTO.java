@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CustomerDTO {
+public class CustomersDTO {
   @NotBlank @NotEmpty @NotNull private String name;
   @NotBlank @NotEmpty @NotNull private String phone;
   @NotBlank @NotEmpty @NotNull private String cpf;

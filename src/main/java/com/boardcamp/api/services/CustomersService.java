@@ -1,9 +1,10 @@
 package com.boardcamp.api.services;
 
-import com.boardcamp.api.dtos.CustomerDTO;
+import com.boardcamp.api.dtos.CustomersDTO;
 import com.boardcamp.api.models.CustomersModel;
 import com.boardcamp.api.repositories.CustomersRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +19,17 @@ public class CustomersService {
     return customersRepository.findAll();
   }
 
-  public CustomersModel createCustomers(CustomerDTO body) {
+  public Optional<CustomersModel> getCustomersById(Long id) {
+    Optional<CustomersModel> customer = customersRepository.findById(id);
+
+    if (!customer.isPresent()) {
+      return Optional.empty();
+    }
+
+    return customer;
+  }
+
+  public CustomersModel createCustomers(CustomersDTO body) {
 
     CustomersModel customer = new CustomersModel(body);
     customersRepository.save(customer);
