@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Customers")
-public class customersModel {
+public class CustomersModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,4 +32,3 @@ public class customersModel {
   @Column(nullable = false, length = 11)
   private String cpf;
 }
-

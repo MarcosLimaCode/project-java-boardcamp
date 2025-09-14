@@ -1,6 +1,6 @@
 package com.boardcamp.api.repositories;
 
-import com.boardcamp.api.models.gamesModel;
+import com.boardcamp.api.models.GamesModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GamesRepository extends JpaRepository<gamesModel, Long> {}
+public interface GamesRepository extends JpaRepository<GamesModel, Long> {}
