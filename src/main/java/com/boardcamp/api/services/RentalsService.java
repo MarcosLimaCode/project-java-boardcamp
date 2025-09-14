@@ -33,8 +33,9 @@ public class RentalsService {
   public RentalsModel createRentals(RentalsDTO body) {
     Optional<CustomersModel> customer = customersRepository.findById(body.getCustomerId());
     Optional<GamesModel> game = gamesRepository.findById(body.getGameId());
+    Integer originalPrice = body.getDaysRented() * game.get().getPricePerDay();
 
-    RentalsModel rental = new RentalsModel(body, customer.get(), game.get());
+    RentalsModel rental = new RentalsModel(body, customer.get(), game.get(), originalPrice);
     rentalsRepository.save(rental);
     return rental;
   }

@@ -53,11 +53,14 @@ public class RentalsModel {
   @JoinColumn(name = "game")
   private GamesModel game;
 
-  public RentalsModel(RentalsDTO dto, CustomersModel customer, GamesModel game) {
+  public RentalsModel(
+      RentalsDTO dto, CustomersModel customer, GamesModel game, Integer originalPrice) {
     this.customerId = dto.getCustomerId();
     this.gameId = dto.getGameId();
     this.rentDate = LocalDate.now();
     this.daysRented = dto.getDaysRented();
+    this.originalPrice = originalPrice;
+    this.delayFee = 0;
     this.customer = customer;
     this.game = game;
   }
