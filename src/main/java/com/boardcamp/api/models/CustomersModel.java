@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Games")
-public class GamesModelTemp {
+@Table(name = "Customers")
+public class CustomersModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,12 +25,10 @@ public class GamesModelTemp {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = true)
-  private String image;
-
   @Column(nullable = false)
-  private Integer stockTotal;
+  @Size(min = 10, max = 11)
+  private String phone;
 
-  @Column(nullable = false)
-  private Integer pricePerDay;
+  @Column(nullable = false, length = 11)
+  private String cpf;
 }

@@ -1,3 +1,3 @@
 package com.boardcamp.api.services;
 
-public class GamesServiceTemp {}
+public class CustomersService {}

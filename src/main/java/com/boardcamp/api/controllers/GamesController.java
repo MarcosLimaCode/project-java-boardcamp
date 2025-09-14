@@ -1,16 +1,16 @@
 package com.boardcamp.api.controllers;
 
-import com.boardcamp.api.services.GamesServiceTemp;
+import com.boardcamp.api.services.GamesService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/games")
-public class GamesControllerTemp {
+public class GamesController {
 
-  final GamesServiceTemp gamesService;
+  final GamesService gamesService;
 
-  GamesControllerTemp(GamesServiceTemp gamesService) {
+  GamesController(GamesService gamesService) {
     this.gamesService = gamesService;
   }
 }

@@ -1,16 +1,16 @@
 package com.boardcamp.api.controllers;
 
-import com.boardcamp.api.services.RentalsServiceTemp;
+import com.boardcamp.api.services.RentalsService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rentals")
-public class RentalsControllerTemp {
+public class RentalsController {
 
-  final RentalsServiceTemp rentalsService;
+  final RentalsService rentalsService;
 
-  RentalsControllerTemp(RentalsServiceTemp rentalsService) {
+  RentalsController(RentalsService rentalsService) {
     this.rentalsService = rentalsService;
   }
 }
