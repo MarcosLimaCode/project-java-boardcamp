@@ -39,7 +39,7 @@ public class RentalsService {
     GamesModel game =
         gamesRepository
             .findById(body.getGameId())
-            .orElseThrow(() -> new ConflictException("Game not found"));
+            .orElseThrow(() -> new ConflictException("Game not found."));
 
     Integer originalPrice = body.getDaysRented() * game.getPricePerDay();
 
