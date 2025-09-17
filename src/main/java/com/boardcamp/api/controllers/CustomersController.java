@@ -29,11 +29,11 @@ public class CustomersController {
 
   @GetMapping("/{id}")
   public ResponseEntity<Object> getCustomersById(@PathVariable Long id) {
-    return ResponseEntity.status(HttpStatus.OK).body(customersService.getCustomers());
+    return ResponseEntity.status(HttpStatus.OK).body(customersService.getCustomersById(id));
   }
 
   @PostMapping()
   public ResponseEntity<Object> createCustomers(@RequestBody @Valid CustomersDTO body) {
-    return ResponseEntity.status(HttpStatus.OK).body(customersService.createCustomers(body));
+    return ResponseEntity.status(HttpStatus.CREATED).body(customersService.createCustomers(body));
   }
 }
