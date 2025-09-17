@@ -1,6 +1,7 @@
 package com.boardcamp.api.services;
 
 import com.boardcamp.api.dtos.GamesDTO;
+import com.boardcamp.api.errors.ConflictException;
 import com.boardcamp.api.models.GamesModel;
 import com.boardcamp.api.repositories.GamesRepository;
 import java.util.List;
@@ -19,7 +20,13 @@ public class GamesService {
   }
 
   public GamesModel createGames(GamesDTO body) {
+    boolean findGame = gamesRepository.existsByName(body.getName());
     GamesModel game = new GamesModel(body);
+
+    if (findGame) {
+      throw new ConflictException("Game is already registred.");
+    }
+
     gamesRepository.save(game);
     return game;
   }

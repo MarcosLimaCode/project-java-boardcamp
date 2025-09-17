@@ -28,6 +28,6 @@ public class GamesController {
 
   @PostMapping()
   public ResponseEntity<Object> createGames(@RequestBody @Valid GamesDTO body) {
-    return ResponseEntity.status(HttpStatus.OK).body(gamesService.createGames(body));
+    return ResponseEntity.status(HttpStatus.CREATED).body(gamesService.createGames(body));
   }
 }
