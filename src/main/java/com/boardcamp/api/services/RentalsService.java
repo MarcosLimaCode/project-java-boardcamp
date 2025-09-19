@@ -3,6 +3,7 @@ package com.boardcamp.api.services;
 import com.boardcamp.api.dtos.RentalsDTO;
 import com.boardcamp.api.errors.ConflictException;
 import com.boardcamp.api.errors.NotFoundException;
+import com.boardcamp.api.errors.UnprocessableException;
 import com.boardcamp.api.models.CustomersModel;
 import com.boardcamp.api.models.GamesModel;
 import com.boardcamp.api.models.RentalsModel;
@@ -44,7 +45,10 @@ public class RentalsService {
             .orElseThrow(() -> new ConflictException("Game not found."));
 
     Integer originalPrice = body.getDaysRented() * game.getPricePerDay();
-
+    if (game.getStockTotal() == 0) {
+      throw new UnprocessableException("Game is currently unavailable.");
+    }
+    game.setStockTotal(game.getStockTotal() - 1);
     RentalsModel rental = new RentalsModel(body, customer, game, originalPrice);
     rentalsRepository.save(rental);
     return rental;
@@ -65,7 +69,12 @@ public class RentalsService {
     LocalDate rentDate = findRental.getRentDate();
     Period totalDaysRented = Period.between(rentDate, LocalDate.now());
 
+    if (findRental.getReturnDate() != null) {
+      throw new UnprocessableException("Rental is already finished.");
+    }
+
     findRental.setReturnDate(LocalDate.now());
+    findGame.setStockTotal(findGame.getStockTotal() + 1);
 
     if (totalDaysRented.getDays() > findRental.getDaysRented()) {
       findRental.setDelayFee(
@@ -75,5 +84,11 @@ public class RentalsService {
     RentalsModel returnedModel = rentalsRepository.save(findRental);
 
     return returnedModel;
+  }
+
+  public void deleteRental(Long id) {
+    rentalsRepository.findById(id).orElseThrow(() -> new NotFoundException("Rental not found."));
+
+    rentalsRepository.deleteById(id);
   }
 }
