@@ -9,6 +9,8 @@ import com.boardcamp.api.models.RentalsModel;
 import com.boardcamp.api.repositories.CustomersRepository;
 import com.boardcamp.api.repositories.GamesRepository;
 import com.boardcamp.api.repositories.RentalsRepository;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +48,32 @@ public class RentalsService {
     RentalsModel rental = new RentalsModel(body, customer, game, originalPrice);
     rentalsRepository.save(rental);
     return rental;
+  }
+
+  public RentalsModel returnRental(Long id) {
+    RentalsModel findRental =
+        rentalsRepository
+            .findById(id)
+            .orElseThrow(() -> new NotFoundException("Rental not found."));
+
+    Long gameId = findRental.getGameId();
+    GamesModel findGame =
+        gamesRepository
+            .findById(gameId)
+            .orElseThrow(() -> new NotFoundException("Game not found."));
+    Integer priceGamePerDay = findGame.getPricePerDay();
+    LocalDate rentDate = findRental.getRentDate();
+    Period totalDaysRented = Period.between(rentDate, LocalDate.now());
+
+    findRental.setReturnDate(LocalDate.now());
+
+    if (totalDaysRented.getDays() > findRental.getDaysRented()) {
+      findRental.setDelayFee(
+          (totalDaysRented.getDays() - findRental.getDaysRented()) * priceGamePerDay);
+    }
+
+    RentalsModel returnedModel = rentalsRepository.save(findRental);
+
+    return returnedModel;
   }
 }
