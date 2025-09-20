@@ -1,7 +1,6 @@
 package com.boardcamp.api.models;
 
 import com.boardcamp.api.dtos.RentalsDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,14 +25,6 @@ public class RentalsModel {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @JsonIgnore
-  @Column(nullable = false)
-  private Long customerId;
-
-  @JsonIgnore
-  @Column(nullable = false)
-  private Long gameId;
-
   @Column(nullable = false)
   private LocalDate rentDate;
 
@@ -46,17 +37,15 @@ public class RentalsModel {
   @Column private Integer delayFee;
 
   @ManyToOne
-  @JoinColumn(name = "customer")
+  @JoinColumn(name = "customerId")
   private CustomersModel customer;
 
   @ManyToOne
-  @JoinColumn(name = "game")
+  @JoinColumn(name = "gameId")
   private GamesModel game;
 
   public RentalsModel(
       RentalsDTO dto, CustomersModel customer, GamesModel game, Integer originalPrice) {
-    this.customerId = dto.getCustomerId();
-    this.gameId = dto.getGameId();
     this.rentDate = LocalDate.now();
     this.daysRented = dto.getDaysRented();
     this.originalPrice = originalPrice;

@@ -60,7 +60,7 @@ public class RentalsService {
             .findById(id)
             .orElseThrow(() -> new NotFoundException("Rental not found."));
 
-    Long gameId = findRental.getGameId();
+    Long gameId = findRental.getGame().getId();
     GamesModel findGame =
         gamesRepository
             .findById(gameId)
