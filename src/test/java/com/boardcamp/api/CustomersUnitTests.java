@@ -14,6 +14,7 @@ import com.boardcamp.api.models.CustomersModel;
 import com.boardcamp.api.repositories.CustomersRepository;
 import com.boardcamp.api.services.CustomersService;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -71,5 +72,20 @@ class CustomersUnitTests {
     // then
     verify(customersRepository, times(1)).findAll();
     assertEquals(customers, getAllCustomers);
+  }
+
+  @Test
+  void givenValidId_whenGetCustomersById_thenReturnCustomer() {
+    // given
+    CustomersModel customer = new CustomersModel(1L, "test", "test", "test");
+
+    doReturn(Optional.of(customer)).when(customersRepository).findById(1L);
+
+    // when
+    Optional<CustomersModel> findCustomer = customersRepository.findById(customer.getId());
+
+    // then
+    verify(customersRepository, times(1)).findById(any());
+    assertEquals(Optional.of(customer), findCustomer);
   }
 }
