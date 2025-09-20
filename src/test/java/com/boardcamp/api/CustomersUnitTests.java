@@ -10,8 +10,10 @@ import static org.mockito.Mockito.verify;
 
 import com.boardcamp.api.dtos.CustomersDTO;
 import com.boardcamp.api.errors.ConflictException;
+import com.boardcamp.api.models.CustomersModel;
 import com.boardcamp.api.repositories.CustomersRepository;
 import com.boardcamp.api.services.CustomersService;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -37,5 +39,37 @@ class CustomersUnitTests {
     verify(customersRepository, times(0)).save(any());
     assertNotNull(exception);
     assertEquals("CPF is already in use.", exception.getMessage());
+  }
+
+  @Test
+  void givenValidCustomers_whenCreatingCustomers_thenCreatesCustomer() {
+    // given
+    CustomersDTO customer = new CustomersDTO("Test", "Test", "Test");
+    CustomersModel newCustomer = new CustomersModel(customer);
+
+    doReturn(false).when(customersRepository).existsByCpf(any());
+    doReturn(newCustomer).when(customersRepository).save(any());
+
+    // when
+    CustomersModel results = customersService.createCustomers(customer);
+
+    // then
+    verify(customersRepository, times(1)).save(any());
+    assertEquals(newCustomer, results);
+  }
+
+  @Test
+  void givenGetCommand_whenGetCustomers_thenReturnAllCustomer() {
+    // given
+    List<CustomersModel> customers = List.of(new CustomersModel(1L, "test", "test", "test"));
+
+    doReturn(customers).when(customersRepository).findAll();
+
+    // when
+    List<CustomersModel> getAllCustomers = customersRepository.findAll();
+
+    // then
+    verify(customersRepository, times(1)).findAll();
+    assertEquals(customers, getAllCustomers);
   }
 }
