@@ -31,4 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-
+src/main/java/com/boardcamp/api/.DS_Store
+src/main/resources/application.properties
+src/test/resources/application-test.properties
